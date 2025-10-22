@@ -1,0 +1,10 @@
+pandas
+sqlalchemy
+pymysql
+pymongo
+duckdb
+dbt-core
+apache-airflow
+plotly
+dash
+python-dotenv
