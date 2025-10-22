@@ -22,8 +22,8 @@ This project simulates a real-world **data engineering pipeline** built by 5 tea
 
 ## 📂 Repository Structure
 
-ingestion/ → MySQL, MongoDB, and DuckDB integration
-transformation/ → dbt models and DuckDB warehouse
-orchestration/ → Airflow DAGs for automation
-visualization/ → Dash web app for insights
-docs/ → Documentation and diagrams
+- ingestion/ → MySQL, MongoDB, and DuckDB integration
+- transformation/ → dbt models and DuckDB warehouse
+- orchestration/ → Airflow DAGs for automation
+- visualization/ → Dash web app for insights
+- docs/ → Documentation and diagrams
