@@ -1,29 +1,78 @@
-# Google Play Store Data Engineering Project
+Google Play Store Data Engineering Project — MongoDB Ingestion
 
-## Overview
-This project simulates a real-world **data engineering pipeline** built by 5 teams:
-- **Data Ingestion:** Load data from CSV + JSON into MySQL & MongoDB.
-- **Transformation:** Model and clean data using dbt + DuckDB.
-- **Orchestration:** Automate with Apache Airflow.
-- **Visualization:** Build an interactive dashboard using Plotly Dash.
-- **Documentation:** Manage architecture, setup, and presentation.
+📖 Overview
+
+This part of the project is focusing on loading and cleaning user reviews data into MongoDB.
+It represents the NoSQL side of our data pipeline and ensures that all text data is properly prepared for analysis and transformation.
+
+👩‍💻 Role: MongoDB Engineer
+
+Responsible for:
+
+Setting up MongoDB connection and environment.
+
+Cleaning and preprocessing user reviews dataset (googleplaystore_user_reviews.csv).
+
+Removing HTML tags, emojis, and unnecessary symbols.
+
+Loading cleaned data into MongoDB collections.
+
+Validating data in MongoDB Compass.
+
 
 ---
 
-## ⚙️ Tech Stack
-- **Databases:** MySQL, MongoDB, DuckDB  
-- **Processing:** 
-- **Modeling:**  
-- **Orchestration:**  
-- **Visualization:**  
-- **Containerization:** 
+⚙️ Tech Stack
+
+Category	Tools / Libraries
+
+Language	Python
+Database	MongoDB
+Libraries	Pandas, BeautifulSoup4, Emoji, PyMongo
 
 ---
 
-## 📂 Repository Structure
+🧰 Project Structure
 
-- ingestion/ → MySQL, MongoDB, and DuckDB integration
-- transformation/ → dbt models and DuckDB warehouse
-- orchestration/ → Airflow DAGs for automation
-- visualization/ → Dash web app for insights
-- docs/ → Documentation and diagrams
+mongodb_ingestion/
+│
+├── clean_text.py          # Cleans emoji + HTML + unwanted symbols
+├── load_reviews.py        # Loads cleaned data into MongoDB
+├── googleplaystore_user_reviews.csv
+└── README.md              # (this file)
+
+
+---
+
+🚀 How to Run
+
+1. Install dependencies:
+
+pip install -r requirements.txt
+
+
+2. Make sure MongoDB is running locally (or use Atlas connection string).
+
+
+3. Run the cleaning script:
+
+python clean_text.py
+
+
+4. Then load the cleaned dataset to MongoDB:
+
+python load_reviews.py
+
+
+5. Open MongoDB Compass → check your database → confirm that the cleaned reviews are uploaded.
+
+
+
+
+---
+
+📦 Output
+
+Cleaned and structured user reviews collection in MongoDB.
+
+Text fields ready for sentiment analysis and dashboard visualization.
