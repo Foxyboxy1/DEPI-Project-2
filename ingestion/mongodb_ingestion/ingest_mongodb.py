@@ -47,4 +47,22 @@
     data_to_insert=df.to_dict("records")
     collection.insert_many(data_to_insert)
     print("donnne")
+
+ from pymongo import MongoClient
+import json
+
+client = MongoClient()
+db = client["playstore_reviews"]          
+collection = db["user_reviews"]           
+
+sample_data = list(collection.find())
+
+
+for doc in sample_data:
+    doc.pop('_id', None)
+
+with open("cleaned_user_reviews_sample.json", "w", encoding="utf-8") as f:
+    json.dump(sample_data, f, ensure_ascii=False, indent=2)
+
+print("✅ Sample exported successfully!")
                             
