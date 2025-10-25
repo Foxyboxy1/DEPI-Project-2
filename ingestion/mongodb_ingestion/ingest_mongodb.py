@@ -60,7 +60,7 @@ sample_data = list(collection.find())
 for doc in sample_data:
     doc.pop('_id', None)
 
-with open("cleaned_user_reviews_sample.json", "w", encoding="utf-8") as f:
+with open("cleaned_user_reviews.json", "w", encoding="utf-8") as f:
     json.dump(sample_data, f, ensure_ascii=False, indent=2)
 
 print("✅ Sample exported successfully!")
