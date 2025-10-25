@@ -36,10 +36,10 @@ Libraries	Pandas, BeautifulSoup4, Emoji, PyMongo
 
 mongodb_ingestion/
 │
-├── clean_text.py          # Cleans emoji + HTML + unwanted symbols
-├── load_reviews.py        # Loads cleaned data into MongoDB
+├── clean_text.py  & load_reviews.py          # Cleans emoji + HTML + unwanted symbols & Loads cleaned data into MongoDB 
 ├── googleplaystore_user_reviews.csv
 └── README.md              # (this file)
+
 
 
 ---
