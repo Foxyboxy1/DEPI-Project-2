@@ -1,4 +1,4 @@
-Google Play Store Data Engineering Project — MongoDB Ingestion
+— MongoDB Ingestion
 
 📖 Overview
 
