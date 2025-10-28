@@ -2,7 +2,7 @@
 
 A complete ELT pipeline that transforms raw Google Play Store data into actionable insights using **MySQL**, **MongoDB**, **DuckDB**, **dbt**, **Airflow**, and **Dash**.
 
-Built by the AppPulse Data Engineering Team for DEPI Project 2.
+Built by the Data Engineering Team for DEPI Project 2.
 
 ---
 
