@@ -1,18 +1,33 @@
-### 👩‍💻 Person 3 – Data Integration Developer
+# 📊 App Performance & User Retention Analytics Platform
 
-**Responsibility:**  
-Integrate data from MySQL (Google Play Store CSV) and MongoDB (User Reviews JSON) into one clean dataset for later use in DuckDB and dbt.
+A complete ELT pipeline that transforms raw Google Play Store data into actionable insights using **MySQL**, **MongoDB**, **DuckDB**, **dbt**, **Airflow**, and **Dash**.
 
-**Tasks Done:**
-1. Loaded both datasets using `pandas` (CSV + JSON).
-2. Renamed columns to match on the key `App`.
-3. Merged both datasets into one DataFrame.
-4. Exported the final file `integrated_data.csv` inside the `data/` folder.
+Built by the AppPulse Data Engineering Team for DEPI Project 2.
 
-**Output:**
-- 📄 `integrated_data.csv` → Final merged dataset ready for DuckDB team.  
-- 🐍 `integration_script.py` → Python code for data merging and export.  
+---
 
-**Example for DuckDB Team:**
-```sql
-SELECT * FROM 'data/integrated_data.csv' LIMIT 10;
+## 🎯 Project Overview
+
+This platform helps app developers and investors understand:
+- Top-rated and top-installed apps by category  
+- Category growth over time  
+- Correlation between price, rating, and installs  
+- User sentiment from reviews  
+
+**Data Sources**:
+- `googleplaystore.csv` → App metadata (loaded into **MySQL**)  
+- `user_reviews.json` → User reviews & sentiment (loaded into **MongoDB**)
+
+---
+
+## 🏗️ Architecture
+
+```mermaid
+flowchart LR
+    A[CSV] -->|Ingestion| B(MySQL)
+    C[JSON] -->|Ingestion| D(MongoDB)
+    B -->|Extract| E[DuckDB Warehouse]
+    D -->|Extract| E
+    E -->|dbt Transform| F[Star Schema]
+    F -->|Airflow DAG| G[Automated Refresh]
+    F -->|Dash| H[Interactive Dashboard]
