@@ -1,0 +1,12 @@
+db.reviews.find().limit(5)
+show collections
+db.reviews.find().limit(5)
+show collections
+use playstore_db
+db.reviews.findOne()
+use playstore
+db.reviews.findOne()
+re
+db.reviews.findOne();
+use playstore;
+show dbs;

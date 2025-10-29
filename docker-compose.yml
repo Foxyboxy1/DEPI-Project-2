@@ -1,0 +1,51 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: playstore
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+      - ./ingestion/mysql_ingestion/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+  airflow:
+    build:
+      context: .
+      dockerfile: Dockerfile.airflow
+    container_name: airflow
+    depends_on:
+      - mysql
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: mysql+pymysql://root:root@mysql:3306/playstore
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./scripts:/opt/airflow/scripts
+      - ./data:/app/data
+    ports:
+      - "8080:8080"
+
+  mongo_db:
+    image: mongo:6.0
+    container_name: mongo_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/mongo:/data/db
+
+  ingestion:
+    build: .
+    container_name: ingestion_app
+    depends_on:
+      - mysql
+      - mongo_db
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    command: ["python", "ingestion/data_integration_developer/integration_script.py"]
+
+
+

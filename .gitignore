@@ -6,3 +6,8 @@ venv/
 *.csv
 *.json
 .env
+data/mysql/mysql.sock
+data/mysql/*.sock
+*.pyc
+__pycache__/
+.env
