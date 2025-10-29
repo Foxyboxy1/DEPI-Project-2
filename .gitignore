@@ -1,8 +1,1 @@
-__pycache__/
-.env
-venv/
-*.duckdb
-*.log
-*.csv
-*.json
-.env
+
