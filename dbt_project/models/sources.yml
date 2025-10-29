@@ -1,0 +1,50 @@
+version: 2
+
+sources:
+  - name: raw
+    database: playstore
+    schema: playstore
+    tables:
+      - name: apps_raw
+        description: "Raw apps data from Google Play Store"
+        columns:
+          - name: App
+            description: "Application name"
+          - name: Category
+            description: "App category"
+          - name: Rating
+            description: "User rating"
+          - name: Reviews
+            description: "Number of reviews"
+          - name: Size
+            description: "App size"
+          - name: Installs
+            description: "Number of installs"
+          - name: Type
+            description: "Free or Paid"
+          - name: Price
+            description: "Price (if paid)"
+          - name: Content Rating
+            description: "Content rating"
+          - name: Genres
+            description: "App genres"
+          - name: Last Updated
+            description: "Last update date"
+          - name: Current Ver
+            description: "Current version"
+          - name: Android Ver
+            description: "Minimum Android version"
+
+      - name: user_reviews_raw
+        description: "Raw user reviews data"
+        columns:
+          - name: app_id
+            description: "App identifier (app name)"
+          - name: translated_review
+            description: "Translated review text"
+          - name: sentiment
+            description: "Review sentiment (Positive/Negative/Neutral)"
+          - name: sentiment_polarity
+            description: "Sentiment polarity score"
+          - name: sentiment_subjectivity
+            description: "Sentiment subjectivity score"
