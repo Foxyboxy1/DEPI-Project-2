@@ -1,67 +1,45 @@
-from pymongo import MongoClient
-
-client=MongoClient()
-
-db=client["playstore_reviews"]
-collection=db["users_reviews"]
-
-pip install emoji
-
-import bs4 
-print('beautiful soup exists')
-    
-import pandas as pd 
-#download data
-df=pd.read_csv("googleplaystore_user_reviews.csv")
-df.head()
-    
+import pandas as pd
 import re
 import emoji
 from bs4 import BeautifulSoup
-
-def clean_text(text):
-      
-    if not isinstance(text, str):
-        text = str(text)    
-            
-    if "\\" in text or "/" in text or ":" in text:
-         text = text.split("\\")[-1]  # ناخد آخر جزء بس
-        
-    try:
-        text = BeautifulSoup(text, "html.parser").get_text()
-    except Exception:
-        text=text
-            
-    try:
-        text = emoji.replace_emoji(text, replace='')
-    except Exception:
-        text=text
-            
-    text = re.sub(r'[^A-Za-z0-9\s.,!?\'\"]+', ' ', text)
-    return text.strip()
-    
-df["Cleaned_Review"]=df["Translated_Review"].apply(clean_text)
-print(df[["Translated_Review","Cleaned_Review"]].head())
-
-data_to_insert=df.to_dict("records")
-collection.insert_many(data_to_insert)
-print("donnne")
-
 from pymongo import MongoClient
 import json
 
+# Load the CSV data
+df = pd.read_csv("data\\raw\\googleplaystore_user_reviews.csv")
+
+# Define text cleaning function
+def clean_text(text):
+    if not isinstance(text, str):
+        text = str(text)
+    
+    # Remove HTML tags
+    text = BeautifulSoup(text, "html.parser").get_text()
+    
+    # Remove emojis
+    text = emoji.replace_emoji(text, replace='')
+    
+    # Keep only letters, digits, spaces, and basic punctuation
+    text = re.sub(r'[^A-Za-z0-9\s.,!?\'\"]+', ' ', text)
+    
+    return text.strip()
+
+# Apply cleaning to the 'Translated_Review' column
+df["Cleaned_Review"] = df["Translated_Review"].apply(clean_text)
+
+# Connect to MongoDB and insert data
 client = MongoClient()
-db = client["playstore_reviews"]          
-collection = db["user_reviews"]           
+db = client["playstore_reviews"]
+collection = db["user_reviews"]  # Consistent collection name
 
-sample_data = list(collection.find())
+# Insert all records
+collection.insert_many(df.to_dict("records"))
+print("✅ Data inserted successfully into MongoDB!")
 
-
-for doc in sample_data:
-    doc.pop('_id', None)
+# Export a sample (or all) documents to JSON (without _id)
+sample_data = list(collection.find({}, {"_id": 0}))  # Exclude _id field
 
 with open("cleaned_user_reviews.json", "w", encoding="utf-8") as f:
     json.dump(sample_data, f, ensure_ascii=False, indent=2)
 
-print("✅ Sample exported successfully!")
-                            
+print("✅ Data exported to 'cleaned_user_reviews.json'!")
