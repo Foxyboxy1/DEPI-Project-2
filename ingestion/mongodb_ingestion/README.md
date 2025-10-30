@@ -1,78 +1,64 @@
-— MongoDB Ingestion
+#  MongoDB Ingestion
 
-📖 Overview
+## 📖 Overview
 
-This part of the project is focusing on loading and cleaning user reviews data into MongoDB.
-It represents the NoSQL side of our data pipeline and ensures that all text data is properly prepared for analysis and transformation.
-
-👩‍💻 Role: MongoDB Engineer
-
-Responsible for:
-
-Setting up MongoDB connection and environment.
-
-Cleaning and preprocessing user reviews dataset (googleplaystore_user_reviews.csv).
-
-Removing HTML tags, emojis, and unnecessary symbols.
-
-Loading cleaned data into MongoDB collections.
-
-Validating data in MongoDB Compass.
-
+This part of the project focuses on **loading and cleaning user reviews data** into **MongoDB**.  
+It represents the **NoSQL side** of our data pipeline and ensures that all text data is properly prepared for analysis and transformation.
 
 ---
 
-⚙️ Tech Stack
+## 👩‍💻 Role: MongoDB Engineer
 
-Category	Tools / Libraries
+**Responsible for:**
 
-Language	Python
-Database	MongoDB
-Libraries	Pandas, BeautifulSoup4, Emoji, PyMongo
+- Setting up MongoDB connection and environment  
+- Cleaning and preprocessing the user reviews dataset (`googleplaystore_user_reviews.csv`)  
+- Removing **HTML tags**, **emojis**, and unnecessary symbols  
+- Loading cleaned data into MongoDB collections  
+- Validating data using **MongoDB Compass**
 
 ---
 
-🧰 Project Structure
+## ⚙️ Tech Stack
 
+| Category   | Tools / Libraries               |
+|------------|----------------------------------|
+| Language   | Python                           |
+| Database   | MongoDB                          |
+| Libraries  | `pandas`, `beautifulsoup4`, `emoji`, `pymongo` |
+
+---
+
+## 🧰 Project Structure
+
+```
 mongodb_ingestion/
 │
-├── clean_text.py  & load_reviews.py          # Cleans emoji + HTML + unwanted symbols & Loads cleaned data into MongoDB 
-├── googleplaystore_user_reviews.csv
+├── ingest_mongodb.py      # Cleans emojis, HTML, and unwanted symbols then Loads cleaned data into MongoDB
 └── README.md              # (this file)
-
-
-
----
-
-🚀 How to Run
-
-1. Install dependencies:
-
-pip install -r requirements.txt
-
-
-2. Make sure MongoDB is running locally (or use Atlas connection string).
-
-
-3. Run the cleaning script:
-
-python clean_text.py
-
-
-4. Then load the cleaned dataset to MongoDB:
-
-python load_reviews.py
-
-
-5. Open MongoDB Compass → check your database → confirm that the cleaned reviews are uploaded.
-
-
-
+```
 
 ---
 
-📦 Output
+## 🚀 How to Run
 
-Cleaned and structured user reviews collection in MongoDB.
+1. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Text fields ready for sentiment analysis and dashboard visualization.
+2. **Ensure MongoDB is running** locally (or configure an Atlas connection string).
+
+3. **Run the script**:
+   ```bash
+   python ingest_mongodb.py
+   ```
+4. **Validate in MongoDB Compass**:  
+   Open Compass → Connect to your database → Confirm that the `app_reviews` collection contains cleaned reviews.
+
+---
+
+## 📦 Output
+
+- A **cleaned and structured** `app_reviews` collection in MongoDB  
+- Text fields ready for **sentiment analysis** and **dashboard visualization**

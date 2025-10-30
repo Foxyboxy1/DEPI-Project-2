@@ -1,79 +1,45 @@
-# -------------------------------
-# 1. IMPORTS & SETUP
-# -------------------------------
-from pymongo import MongoClient
 import pandas as pd
 import re
 import emoji
 from bs4 import BeautifulSoup
+from pymongo import MongoClient
 import json
 
-print("✅ All libraries imported successfully!")
+# Load the CSV data
+df = pd.read_csv("data\\raw\\googleplaystore_user_reviews.csv")
 
-# -------------------------------
-# 2. CONNECT TO MONGODB
-# -------------------------------
-client = MongoClient("mongodb://localhost:27017/")  
-db = client["playstore_reviews"]
-collection = db["user_reviews"]
-
-# -------------------------------
-# 3. LOAD RAW DATA
-# -------------------------------
-print("📥 Loading dataset...")
-df = pd.read_csv("data\raw\googleplaystore_user_reviews.csv")
-
-# -------------------------------
-# 4. CLEAN FUNCTION
-# -------------------------------
+# Define text cleaning function
 def clean_text(text):
     if not isinstance(text, str):
         text = str(text)
-
-    # إزالة المسارات
-    if "\\" in text or "/" in text or ":" in text:
-        text = text.split("\\")[-1]
-
-    # إزالة HTML tags
-    try:
-        text = BeautifulSoup(text, "html.parser").get_text()
-    except Exception:
-        pass
-
-    # إزالة الرموز التعبيرية
-    try:
-        text = emoji.replace_emoji(text, replace="")
-    except Exception:
-        pass
-
-    # إزالة الرموز الغريبة
-    text = re.sub(r"[^A-Za-z0-9\s.,!?'\"]+", " ", text)
-
+    
+    # Remove HTML tags
+    text = BeautifulSoup(text, "html.parser").get_text()
+    
+    # Remove emojis
+    text = emoji.replace_emoji(text, replace='')
+    
+    # Keep only letters, digits, spaces, and basic punctuation
+    text = re.sub(r'[^A-Za-z0-9\s.,!?\'\"]+', ' ', text)
+    
     return text.strip()
 
-# -------------------------------
-# 5. APPLY CLEANING
-# -------------------------------
-print("🧹 Cleaning text...")
+# Apply cleaning to the 'Translated_Review' column
 df["Cleaned_Review"] = df["Translated_Review"].apply(clean_text)
 
-# -------------------------------
-# 6. INSERT INTO MONGODB
-# -------------------------------
-print("📤 Inserting data into MongoDB...")
-data_to_insert = df.to_dict("records")
-collection.insert_many(data_to_insert)
-print(f"✅ Inserted {len(data_to_insert)} records into MongoDB")
+# Connect to MongoDB and insert data
+client = MongoClient()
+db = client["playstore_reviews"]
+collection = db["user_reviews"]  # Consistent collection name
 
-# -------------------------------
-# 7. EXPORT CLEANED SAMPLE TO JSON
-# -------------------------------
-print("💾 Exporting cleaned data to JSON...")
+# Insert all records
+collection.insert_many(df.to_dict("records"))
+print("✅ Data inserted successfully into MongoDB!")
 
-# نقرأ من قاعدة البيانات بعد الإدخال
-sample_data = list(collection.find({}, {"_id": 0}))  # إزالة الـ _id تلقائيًا
+# Export a sample (or all) documents to JSON (without _id)
+sample_data = list(collection.find({}, {"_id": 0}))  # Exclude _id field
 
 with open("cleaned_user_reviews.json", "w", encoding="utf-8") as f:
     json.dump(sample_data, f, ensure_ascii=False, indent=2)
 
-print("🎉 cleaned_user_reviews.json exported successfully!")
+print("✅ Data exported to 'cleaned_user_reviews.json'!")
