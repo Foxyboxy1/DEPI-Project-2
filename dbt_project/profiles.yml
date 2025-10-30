@@ -1,0 +1,28 @@
+# DBT Profile Configuration for Play Store Project
+
+playstore_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: mysql
+      host: mysql
+      port: 3306
+      user: root
+      password: root
+      database: playstore
+      schema: playstore
+      threads: 4
+      keepalives_idle: 0
+      connect_timeout: 10
+      
+    prod:
+      type: mysql
+      host: mysql
+      port: 3306
+      user: root
+      password: root
+      database: playstore
+      schema: playstore_prod
+      threads: 8
+      keepalives_idle: 0
+      connect_timeout: 10
