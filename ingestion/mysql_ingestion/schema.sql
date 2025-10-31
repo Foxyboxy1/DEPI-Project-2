@@ -1,11 +1,5 @@
--- Create Airflow database (for Airflow metadata)
-CREATE DATABASE IF NOT EXISTS airflow
-CHARACTER SET utf8mb4
-COLLATE utf8mb4_unicode_ci;
-
--- Create Playstore database (for app data)
-CREATE DATABASE IF NOT EXISTS playstore
-CHARACTER SET utf8mb4
+CREATE DATABASE IF NOT EXISTS playstore 
+CHARACTER SET utf8mb4 
 COLLATE utf8mb4_unicode_ci;
 
 USE playstore;
@@ -18,7 +12,7 @@ CREATE TABLE IF NOT EXISTS play_store_apps (
     reviews INT,
     size VARCHAR(20),
     installs VARCHAR(50),
-    `type` VARCHAR(20),
+    type VARCHAR(20),
     price VARCHAR(20),
     content_rating VARCHAR(50),
     genres VARCHAR(255),

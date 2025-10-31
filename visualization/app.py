@@ -3,24 +3,33 @@ from dash import dcc, html, Input, Output
 import plotly.express as px
 import pandas as pd
 import plotly.graph_objects as go
+import duckdb
 
 # ----------------------------
 # DATA LOADING
 # ----------------------------
-USE_SAMPLE_DATA = True  # Set to False when DuckDB is ready
+USE_SAMPLE_DATA = False  # Set to False when DuckDB is ready
 
-if USE_SAMPLE_DATA:
-    df = pd.read_parquet("visualization/sample_data.parquet")
-else:
-    import duckdb
-    con = duckdb.connect("data/warehouse/apppulse.duckdb", read_only=True)
-    df = con.execute("""
-        SELECT app, category, avg_rating, installs, reviews_count, 
-               price, sentiment_score, last_updated
-        FROM fact_app_metrics
-        WHERE avg_rating IS NOT NULL
-    """).fetchdf()
-    con.close()
+con = duckdb.connect("../playstore/dev.duckdb", read_only=True)
+
+# Query the final star schema
+df = con.execute("""
+    SELECT 
+        a.app_id AS app,
+        c.category_name AS category,
+        f.avg_rating,
+        f.installs,
+        f.reviews_count,
+        f.avg_price AS price,
+        f.sentiment_score,
+        d.full_date AS last_updated
+    FROM fact_app_metrics f
+    JOIN dim_app a ON f.app_key = a.app_key
+    JOIN dim_category c ON f.category_key = c.category_key
+    JOIN dim_date d ON f.date_key = d.date_key
+""").fetchdf()
+
+con.close()
 
 df['last_updated'] = pd.to_datetime(df['last_updated'])
 categories = df['category'].unique()

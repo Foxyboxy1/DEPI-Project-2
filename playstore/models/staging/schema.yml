@@ -1,0 +1,39 @@
+version: 2
+
+sources:
+  - name: integrated
+    description: "Unified dataset from MySQL + MongoDB (provided by Member 3)"
+    meta:
+      external_location: "../data/processed/integrated_data.csv"  # ✅ Add this
+    tables:
+      - name: integrated_data
+        description: "Full app + review metrics"
+        columns:
+          - name: app
+            description: "App name"
+          - name: category
+            description: "App category"
+          - name: rating
+            description: "Average rating"
+          - name: reviews
+            description: "Number of reviews"
+          - name: installs
+            description: "Install count"
+          - name: size
+            description: "App size"
+          - name: type
+            description: "Free or Paid"
+          - name: price
+            description: "Price in USD"
+          - name: content_rating
+            description: "Content rating"
+          - name: genres
+            description: "App genres"
+          - name: last_updated
+            description: "Last update date"
+          - name: current_ver
+            description: "Current version"
+          - name: android_ver
+            description: "Android version requirement"
+          - name: sentiment_score
+            description: "Sentiment polarity score"
