@@ -1,0 +1,9 @@
+apache-airflow==2.7.0
+pandas==2.0.3
+sqlalchemy==2.0.21
+pymongo==4.5.0
+duckdb==0.9.2
+pymysql==1.1.0
+python-dotenv==1.0.0
+dbt-core==1.6.0
+dbt-duckdb==1.6.0
