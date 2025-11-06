@@ -6,7 +6,7 @@ from pymongo import MongoClient
 import json
 
 # Load the CSV data
-df = pd.read_csv("data\\raw\\googleplaystore_user_reviews.csv")
+df = pd.read_csv("data/raw/googleplaystore_user_reviews.csv")
 
 # Define text cleaning function
 def clean_text(text):

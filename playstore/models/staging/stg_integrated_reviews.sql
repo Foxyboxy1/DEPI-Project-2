@@ -16,5 +16,5 @@ SELECT
     "Current Ver" AS current_ver,
     "Android Ver" AS android_ver,
     Sentiment_Polarity AS sentiment_polarity
-FROM read_csv('../data/processed/integrated_data.csv', header=true, auto_detect=true)
+FROM read_csv('data/processed/integrated_data.csv', header=true, auto_detect=true)
 WHERE App IS NOT NULL AND Rating IS NOT NULL

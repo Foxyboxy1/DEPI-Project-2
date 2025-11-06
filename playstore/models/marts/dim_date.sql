@@ -1,6 +1,6 @@
-WITH dates AS (
+WITH date_keys AS (
     SELECT DISTINCT last_updated AS full_date
-    FROM {{ ref('stg_integrated_apps') }}
+    FROM {{ ref('stg_playstore_apps') }}
     WHERE last_updated IS NOT NULL
 )
 SELECT
@@ -9,4 +9,4 @@ SELECT
     YEAR(full_date) AS year,
     MONTH(full_date) AS month,
     DAY(full_date) AS day
-FROM dates
+FROM date_keys

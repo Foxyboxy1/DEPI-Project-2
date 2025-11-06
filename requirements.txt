@@ -1,39 +1,15 @@
-# ==========================================
-# Apache Airflow
-# ==========================================
-apache-airflow==2.7.1
-apache-airflow-providers-mysql==5.4.0
-
-# ==========================================
-# Database Drivers
-# ==========================================
-pymysql==1.1.0
-pymongo==4.6.1
-sqlalchemy==1.4.49
+# Data Ingestion
+pandas>=2.0.0
 mysql-connector-python>=8.0.0
-cryptography==41.0.5
+pymongo>=4.0.0
+beautifulsoup4>=4.12.0
+emoji>=2.10.0
+python-dotenv>=1.0.0
 
-# ==========================================
-# Data Processing
-# ==========================================
-pandas==2.0.3
-numpy==1.24.3
-openpyxl==3.1.2
-beautifulsoup4==4.12.3
-emoji==2.12.1
-lxml==5.3.0
+# Transformation
+duckdb>=0.10.0
+dbt-duckdb>=1.8.0
 
-# ==========================================
-# DBT Core and MySQL Adapter
-# ==========================================
-dbt-core==1.7.4
-dbt-mysql==1.7.4
-
-# ==========================================
-# Utilities
-# ==========================================
-python-dotenv==1.0.0
-requests==2.31.0
-pyarrow>=12.0.0
-distutils-pytest==0.2.1
-setuptools
+# Visualization
+dash>=2.17.0
+plotly>=5.22.0

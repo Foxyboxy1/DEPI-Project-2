@@ -1,8 +1,8 @@
 import pandas as pd
 
 # Load datasets from GitHub (CSV + JSON)
-apps_df = pd.read_csv("data\\raw\\googleplaystore.csv")
-reviews_df = pd.read_json("data\processed\cleaned_user_reviews.json")
+apps_df = pd.read_csv("data/raw/googleplaystore.csv")
+reviews_df = pd.read_json("data/processed/cleaned_user_reviews.json")
 
 # Merge both datasets
 merged_df = pd.merge(apps_df, reviews_df, on="App", how="inner")

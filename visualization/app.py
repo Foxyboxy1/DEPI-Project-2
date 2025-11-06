@@ -10,7 +10,7 @@ import duckdb
 # ----------------------------
 USE_SAMPLE_DATA = False  # Set to False when DuckDB is ready
 
-con = duckdb.connect("../playstore/dev.duckdb", read_only=True)
+con = duckdb.connect("playstore/playstore.duckdb", read_only=True)
 
 # Query the final star schema
 df = con.execute("""
